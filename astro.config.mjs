@@ -4,8 +4,8 @@ import starlight from "@astrojs/starlight";
 
 // https://astro.build/config
 export default defineConfig({
-  site: "https://hereditary-eu.github.io",
-  base: "/demos",
+  site: "https://hereditary-test.waldert.at",
+  base: "/",
   integrations: [
     starlight({
       title: "My Docs",
