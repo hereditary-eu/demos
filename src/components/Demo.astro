@@ -1,13 +1,13 @@
 ---
 import { Badge, Card } from "@astrojs/starlight/components";
 import Image from "astro/components/Image.astro";
-const { title, image, link, code, paper } = Astro.props;
+const { title, image, link, code, paper, contact } = Astro.props;
 const paperTitle = Astro.props["paper-title"];
 ---
 
 <Card title={title}>
   <a href={link}>
-    <Image src={image} alt={title} style="margin-bottom: 8px;" />
+    <Image src={image} alt={title} style="margin-bottom: 10px;" />
   </a>
   <slot />
   <div style="display: flex; gap: 5px; justify-content: right;">
@@ -32,6 +32,6 @@ const paperTitle = Astro.props["paper-title"];
         </a>
       )
     }
-    <div></div>
   </div>
+  <p style="text-align: right; margin: 0;">Contact: {contact}</p>
 </Card>
