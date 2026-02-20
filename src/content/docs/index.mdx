@@ -1,5 +1,5 @@
 ---
-title: Hereditary Demos
+title: Hereditary Demos & Visualisation Components
 description: Overview of the available Hereditary Demos
 template: splash # Remove or comment out this line to display the site sidebar on this page.
 # hero:
@@ -23,8 +23,13 @@ import NeurodegenVisImage from "../../assets/demos/neurodegen-vis.png";
 import OnSetImage from "../../assets/demos/onset.png";
 import ParamInterImage from "../../assets/demos/param-inter.png";
 import GutBrainImage from "../../assets/demos/gut-brain-viewer.png";
+import InSilicoImage from "../../assets/demos/in-silico-cancer-cell-simulation.png";
+import NeuronalImage from "../../assets/demos/neuronal-brain-simulation.png";
+import AlvisImage from "../../assets/demos/alvis.png";
+import DiffCellSigImage from "../../assets/demos/diff-cell-sig.png";
+import TTYGImage from "../../assets/demos/talk-to-your-graph.png";
 
-In [HEREDITARY](https://hereditary-project.eu/), we build various prototypes and demos to showcase possibilities.
+In [HEREDITARY](https://hereditary-project.eu/), we build various prototypes and demos to showcase visualisation possibilities.
 Many of the demos are developed as part of the Work Package 5 (WP5) efforts, which focusses on visualisation.
 
 <CardGrid stagger>
@@ -35,6 +40,7 @@ Many of the demos are developed as part of the Work Package 5 (WP5) efforts, whi
     code="https://github.com/hereditary-eu/ClustersInFocus"
     paper="https://doi.org/10.2312/vcbm.20251250"
     paper-title="Clusters in Focus: A Simple and Robust Detail-On-Demand Dashboard for Patient Data"
+    contact="Peter Waldert"
   >
     Exploring tabular datasets to understand how different feature pairs
     partition data into meaningful cohorts is crucial in domains such as
@@ -49,6 +55,7 @@ Many of the demos are developed as part of the Work Package 5 (WP5) efforts, whi
     code="https://github.com/hereditary-eu/Neurodegen-Vis"
     paper="https://tugraz.elsevierpure.com/en/publications/0c242154-71e2-4b01-abd8-6f386da18f4e"
     paper-title="Privacy-Preserving Visual Exploration of Healthcare Data with a Language Model Integration"
+    contact="Peter Waldert"
   >
     Healthcare records, measurements and datasets can quickly become highly
     complex in terms of storage, anonymisation and interpretation. With
@@ -63,6 +70,7 @@ Many of the demos are developed as part of the Work Package 5 (WP5) efforts, whi
     code="https://github.com/hereditary-eu/onset"
     paper="https://dl.acm.org/doi/10.1145/3726302.3730148"
     paper-title="OnSET: Ontology and Semantic Exploration Toolkit"
+    contact="Benedikt Kantz"
   >
     OnSET is designed to enable a more explorative ontology querying experience
     for non-expert users, and to build a quick understanding of the scale and
@@ -76,6 +84,7 @@ Many of the demos are developed as part of the Work Package 5 (WP5) efforts, whi
     code="https://github.com/Dakantz/ParamInter"
     paper="https://arxiv.org/abs/2509.19202"
     paper-title="AlloyInter: Visualising Alloy Mixture Interpolations in t-SNE Representations"
+    contact="Benedikt Kantz"
   >
     ParamInter is a novel toolset to explore continous input-output parameter
     sets interactively through guidance by XAI and UCQ. The approach
@@ -88,6 +97,7 @@ Many of the demos are developed as part of the Work Package 5 (WP5) efforts, whi
     image={GutBrainImage}
     link="https://hereditary.cgv.tugraz.at/gut-brain-viewer"
     code="https://github.com/hereditary-eu/gut-brain-visualization"
+    contact="Casper van Leeuwen"
   >
     The Gut-Brain Viewer visualizes gut microbiota-brain links from LICA outputs
     via three linked views. An interactive microbiota matrix shows organism
@@ -96,5 +106,62 @@ Many of the demos are developed as part of the Work Package 5 (WP5) efforts, whi
     modality. Interactive brain slices and volumetric renders show voxel
     Z-scores for SN, ECN, or DMN from 4D NIfTI files.
   </Demo>
-  {/* <Demo title="Neuronal Brain Simulation" image={NeuronalImage}></Demo> */}
+  <Demo
+    title="Multi-Component State Model Visualisation"
+    image={InSilicoImage}
+    link="https://in-silico-cancer-cell.waldert.at/"
+    code="https://github.com/MrP01/InSilicoCancerCell/"
+    paper="https://conferences.eg.org/vcbm2025/wp-content/uploads/sites/26/2025/09/Optimization-of-a-Parametrized-Time-Dependent-Hidden-Markov-Model-by-Example-of-an-Electrophysiological-Cancer-Cell.pdf"
+    paper-title="Optimization of a Parametrized, Time-Dependent Hidden Markov Model by Example of an Electrophysiological Cancer Cell"
+    contact="Peter Waldert"
+  >
+    This component is concerned with the visualisation of a multi-component
+    state model coupled (biological) system. Each component can be modelled
+    through its own individual state model, including dependencies on the
+    environment such as ion concentrations, voltages or other variables.
+  </Demo>
+  <Demo
+    title="Differential Cell Signaling"
+    image={DiffCellSigImage}
+    contact="Gaia Tussardi"
+  >
+    In medical applications, the increasing availability of single-cell RNA
+    sequencing data from pathological and healthy samples has led to the
+    development of methods for differential analyses, i.e. extensions of classic
+    bioinformatics analyses which identify significant biological alterations in
+    the pathological condition with respect to an healthy reference. A first
+    draft of the dashboard shows a preview of the graph.
+  </Demo>
+  <Demo title="Alvis" image={AlvisImage} contact="Peter Waldert">
+    Amyotrophic Lateral Sclerosis (ALS) is a fatal neurodegenerative disease
+    affecting over 300,000 people worldwide. Currently, there is no cure—only
+    treatments aimed at improving patients' quality of life. We introduce ALviS,
+    a prototype designed for analyzing ALS datasets, providing a foundational
+    framework for visualizing and exploring the multivariate ALS dataset.
+  </Demo>
+  <Demo
+    title="Neuronal Brain Simulation"
+    image={NeuronalImage}
+    contact="Peter Waldert"
+  >
+    The Brain Connectome and Activity Data dashboard visualises a simulation of
+    the brain. On the left, we have a shared view between the neuron graph and a
+    perspective view. On the right, the varying quantities described above are
+    displayed, for one selected neuron, as a coloured line chart. The colour
+    intensity is used to indicate areas of high activity, although that can be
+    adjusted.
+  </Demo>
+  <Demo
+    title="Talk to Your Graph"
+    image={TTYGImage}
+    link="https://graphdb.ontotext.com/documentation/11.3/talk-to-graph.html"
+    contact="Ivelina Nikolova-Koleva"
+  >
+    Natural language querying (NLQ) and visual querying (VQ) are related as
+    user-friendly paradigms for interacting with a KG, each mapping intuitive
+    user input (language or visuals) to the same semantic graph model. The
+    proposed approach Talk To Your Graph (TTYG) overcomes the need for SPARQL
+    query writing and any knowledge about the technologies and particular
+    semantic model and ontologies.
+  </Demo>
 </CardGrid>
