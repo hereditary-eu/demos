@@ -1,6 +1,37 @@
 ---
-import { Card } from "@astrojs/starlight/components";
-const { title } = Astro.props;
+import { Badge, Card } from "@astrojs/starlight/components";
+import Image from "astro/components/Image.astro";
+const { title, image, link, code, paper } = Astro.props;
+const paperTitle = Astro.props["paper-title"];
 ---
 
-<Card title={title} />
+<Card title={title}>
+  <a href={link}>
+    <Image src={image} alt={title} style="margin-bottom: 8px;" />
+  </a>
+  <slot />
+  <div style="display: flex; gap: 5px; justify-content: right;">
+    {
+      link && (
+        <a href={link}>
+          <Badge text="Live Demo" variant="default" />
+        </a>
+      )
+    }
+    {
+      code && (
+        <a href={code}>
+          <Badge text="Code Available" variant="tip" />
+        </a>
+      )
+    }
+    {
+      paper && (
+        <a href={paper} title={paperTitle}>
+          <Badge text="Paper" variant="success" />
+        </a>
+      )
+    }
+    <div></div>
+  </div>
+</Card>
