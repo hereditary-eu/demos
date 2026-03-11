@@ -1,0 +1,38 @@
+---
+import Image from "astro/components/Image.astro";
+import HereditaryHorizontal from "../assets/logos/hereditary-horizontal-logo.png";
+import FundedByEU from "../assets/logos/funded-by-the-eu.png";
+---
+
+<div class="footer-logos">
+  <Image src={HereditaryHorizontal} alt="Hereditary Project Logo" />
+  <Image src={FundedByEU} alt="Funded by the European Union" />
+</div>
+
+This project has received funding from the European Union's Horizon Europe
+research and innovation programme under grant agreement No GA 101137074. Views
+and opinions expressed are however those of the author(s) only and do not
+necessarily reflect those of the European Union. Neither the European Union nor
+the granting authority can be held responsible for them. This project has
+received support from the EOSC EU Node.
+
+<style lang="scss">
+  .footer-logos {
+    display: flex;
+    justify-content: space-between; /* pushes images to left and right */
+    align-items: center; /* vertically center if container taller */
+    gap: 20px;
+    box-sizing: border-box;
+    height: 80px;
+    margin-bottom: 1.5%;
+
+    img {
+      margin: 0;
+      height: 100%; /* match container height */
+      width: auto; /* preserve aspect ratio */
+      max-width: 45%; /* optional safeguard so a very wide image doesn't overlap */
+      object-fit: contain; /* safe fallback for replaced elements */
+      display: block;
+    }
+  }
+</style>

@@ -8,16 +8,27 @@ export default defineConfig({
   base: "/",
   integrations: [
     starlight({
-      title: "HEREDITARY",
+      title: "Demos",
+      logo: {
+        src: "./src/assets/logos/hereditary-logo-transparent.png",
+        alt: "HEREDITARY",
+        // replacesTitle: true,
+      },
       favicon: "/favicon.ico",
       social: [
         {
           icon: "github",
           label: "GitHub",
-          href: "https://github.com/hereditary-eu/demos",
+          href: "https://github.com/hereditary-eu/",
+        },
+        {
+          icon: "linkedin",
+          label: "LinkedIn",
+          href: "https://www.linkedin.com/company/hereditary-eu",
         },
       ],
       sidebar: [],
+      customCss: ["./src/main.scss"],
     }),
   ],
 });

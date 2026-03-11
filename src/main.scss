@@ -1,0 +1,8 @@
+:root {
+  --sl-nav-gap: 10px;
+
+  --sl-color-text-accent: #253889;
+  &[data-theme="dark"] {
+    --sl-color-text-accent: white;
+  }
+}
