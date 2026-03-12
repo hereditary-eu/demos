@@ -1,7 +1,7 @@
 ---
 import { Badge, Card } from "@astrojs/starlight/components";
 import Image from "astro/components/Image.astro";
-const { title, image, link, code, paper, contact } = Astro.props;
+const { title, image, link, code, paper, contact, documentation } = Astro.props;
 const paperTitle = Astro.props["paper-title"];
 ---
 
@@ -15,6 +15,13 @@ const paperTitle = Astro.props["paper-title"];
       link && (
         <a href={link}>
           <Badge text="Live Demo" variant="default" />
+        </a>
+      )
+    }
+    {
+      documentation && (
+        <a href={documentation}>
+          <Badge text="Documentation" variant="default" />
         </a>
       )
     }
