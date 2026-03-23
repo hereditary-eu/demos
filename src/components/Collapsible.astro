@@ -1,0 +1,103 @@
+---
+import { Aside } from "@astrojs/starlight/components";
+
+interface Props {
+  title?: string;
+  type?: "note" | "tip" | "caution" | "danger";
+  open?: boolean;
+}
+
+const {
+  title = "Show more",
+  type = "note",
+  open = false,
+} = Astro.props;
+
+const id = `collapsible-${Math.random().toString(36).slice(2, 9)}`;
+---
+
+<div class="collapsible-wrapper" data-open={open ? "true" : "false"}>
+  <button
+    class="collapsible-toggle"
+    aria-expanded={open ? "true" : "false"}
+    aria-controls={id}
+  >
+    <span class="collapsible-toggle__label">{title}</span>
+    <svg
+      class="collapsible-toggle__icon"
+      xmlns="http://www.w3.org/2000/svg"
+      width="16"
+      height="16"
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      stroke-width="2.5"
+      stroke-linecap="round"
+      stroke-linejoin="round"
+      aria-hidden="true"
+    >
+      <polyline points="6 9 12 15 18 9"></polyline>
+    </svg>
+  </button>
+
+  <div id={id} class="collapsible-content" hidden={!open}>
+    <Aside type={type}>
+      <slot />
+    </Aside>
+  </div>
+</div>
+
+<script>
+  document.querySelectorAll<HTMLElement>(".collapsible-wrapper").forEach((wrapper) => {
+    const btn = wrapper.querySelector<HTMLButtonElement>(".collapsible-toggle")!;
+    const content = wrapper.querySelector<HTMLElement>(".collapsible-content")!;
+
+    btn.addEventListener("click", () => {
+      const isOpen = btn.getAttribute("aria-expanded") === "true";
+      btn.setAttribute("aria-expanded", String(!isOpen));
+      wrapper.dataset.open = String(!isOpen);
+      content.hidden = isOpen;
+    });
+  });
+</script>
+
+<style>
+  .collapsible-wrapper {
+    margin-block: 1rem;
+  }
+
+  .collapsible-toggle {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    background: none;
+    border: none;
+    padding: 0.25rem 0;
+    cursor: pointer;
+    color: var(--sl-color-text-accent);
+    font: inherit;
+    font-size: var(--sl-text-sm);
+    font-weight: 600;
+    line-height: 1;
+    text-decoration: none;
+    transition: color 0.15s ease;
+  }
+
+  .collapsible-toggle:hover {
+    color: var(--sl-color-white);
+  }
+
+  .collapsible-toggle__icon {
+    flex-shrink: 0;
+    transition: transform 0.2s ease;
+  }
+
+  .collapsible-wrapper[data-open="true"] .collapsible-toggle__icon {
+    transform: rotate(180deg);
+  }
+
+  /* Remove top margin from the aside when nested so spacing feels intentional */
+  .collapsible-content > :global(.starlight-aside) {
+    margin-block-start: 0.5rem;
+  }
+</style>
