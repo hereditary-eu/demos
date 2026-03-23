@@ -7,11 +7,7 @@ interface Props {
   open?: boolean;
 }
 
-const {
-  title = "Show more",
-  type = "note",
-  open = false,
-} = Astro.props;
+const { title = "Show more", type = "note", open = false } = Astro.props;
 
 const id = `collapsible-${Math.random().toString(36).slice(2, 9)}`;
 ---
@@ -48,22 +44,29 @@ const id = `collapsible-${Math.random().toString(36).slice(2, 9)}`;
 </div>
 
 <script>
-  document.querySelectorAll<HTMLElement>(".collapsible-wrapper").forEach((wrapper) => {
-    const btn = wrapper.querySelector<HTMLButtonElement>(".collapsible-toggle")!;
-    const content = wrapper.querySelector<HTMLElement>(".collapsible-content")!;
+  document
+    .querySelectorAll<HTMLElement>(".collapsible-wrapper")
+    .forEach((wrapper) => {
+      const btn = wrapper.querySelector<HTMLButtonElement>(
+        ".collapsible-toggle",
+      )!;
+      const content = wrapper.querySelector<HTMLElement>(
+        ".collapsible-content",
+      )!;
 
-    btn.addEventListener("click", () => {
-      const isOpen = btn.getAttribute("aria-expanded") === "true";
-      btn.setAttribute("aria-expanded", String(!isOpen));
-      wrapper.dataset.open = String(!isOpen);
-      content.hidden = isOpen;
+      btn.addEventListener("click", () => {
+        const isOpen = btn.getAttribute("aria-expanded") === "true";
+        btn.setAttribute("aria-expanded", String(!isOpen));
+        wrapper.dataset.open = String(!isOpen);
+        content.hidden = isOpen;
+      });
     });
-  });
 </script>
 
 <style>
   .collapsible-wrapper {
     margin-block: 1rem;
+    margin-top: 5px;
   }
 
   .collapsible-toggle {
