@@ -44,10 +44,10 @@ const paperTitle = Astro.props["paper-title"];
   </div>
   <div class="demo-footer">
     {link && (
-      <span class="status-flare" data-url={link}>
+      <a href={link} class="status-flare" data-url={link}>
         <span class="status-dot"></span>
         <span class="status-text">Checking…</span>
-      </span>
+      </a>
     )}
     <p class="demo-contact">Contact: {contact}</p>
   </div>
@@ -77,6 +77,7 @@ const paperTitle = Astro.props["paper-title"];
     align-items: center;
     gap: 6px;
     flex-shrink: 0;
+    text-decoration: none !important;
   }
 
   /* --- dot --- */
