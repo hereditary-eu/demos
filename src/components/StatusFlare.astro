@@ -1,0 +1,123 @@
+---
+const { url } = Astro.props;
+---
+
+<a href={url} class="status-flare-link">
+  <status-flare data-url={url}>
+    <span class="status-dot"></span>
+    <span class="status-text">Checking…</span>
+  </status-flare>
+</a>
+
+<style>
+  .status-flare-link {
+    display: inline-flex;
+    align-items: center;
+    text-decoration: none !important;
+    flex-shrink: 0;
+  }
+
+  status-flare {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+  }
+
+  .status-dot {
+    position: relative;
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    background: #888;
+    flex-shrink: 0;
+    animation: sf-pulse 1.6s ease-in-out infinite;
+  }
+
+  status-flare[data-status="online"] .status-dot {
+    background: #22c55e;
+    animation: sf-blink 2.4s ease-in-out infinite;
+  }
+
+  status-flare[data-status="online"] .status-dot::after {
+    content: "";
+    position: absolute;
+    inset: -4px;
+    border-radius: 50%;
+    border: 2px solid #22c55e;
+    opacity: 0;
+    animation: sf-ring 2.4s ease-out infinite;
+  }
+
+  status-flare[data-status="offline"] .status-dot {
+    background: #ef4444;
+    animation: none;
+  }
+
+  .status-text {
+    font-size: 0.78rem;
+    color: var(--sl-color-gray-3);
+    white-space: nowrap;
+  }
+
+  status-flare[data-status="online"] .status-text {
+    color: #22c55e;
+  }
+
+  status-flare[data-status="offline"] .status-text {
+    color: #ef4444;
+  }
+
+  @keyframes sf-pulse {
+    0%,
+    100% {
+      opacity: 0.35;
+    }
+    50% {
+      opacity: 1;
+    }
+  }
+
+  @keyframes sf-blink {
+    0%,
+    100% {
+      opacity: 1;
+      transform: scale(1);
+    }
+    50% {
+      opacity: 0.65;
+      transform: scale(0.88);
+    }
+  }
+
+  @keyframes sf-ring {
+    0% {
+      transform: scale(0.6);
+      opacity: 0.8;
+    }
+    100% {
+      transform: scale(1.8);
+      opacity: 0;
+    }
+  }
+</style>
+
+<script>
+  class StatusFlare extends HTMLElement {
+    async connectedCallback() {
+      const url = this.dataset.url!;
+      const text = this.querySelector<HTMLElement>(".status-text")!;
+      try {
+        await fetch(url, {
+          mode: "no-cors",
+          signal: AbortSignal.timeout(7000),
+        });
+        this.dataset.status = "online";
+        text.textContent = "Online";
+      } catch {
+        this.dataset.status = "offline";
+        text.textContent = "Offline";
+      }
+    }
+  }
+  customElements.define("status-flare", StatusFlare);
+</script>
