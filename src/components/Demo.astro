@@ -2,7 +2,7 @@
 import { Badge, Card } from "@astrojs/starlight/components";
 import Image from "astro/components/Image.astro";
 import StatusFlare from "./StatusFlare.astro";
-const { title, image, link, code, paper, contact, documentation } = Astro.props;
+const { title, image, link, code, paper, video, contact, documentation } = Astro.props;
 const paperTitle = Astro.props["paper-title"];
 ---
 
@@ -39,6 +39,13 @@ const paperTitle = Astro.props["paper-title"];
       paper && (
         <a href={paper} title={paperTitle}>
           <Badge text="Paper" variant="success" />
+        </a>
+      )
+    }
+    {
+      video && (
+        <a href={video}>
+          <Badge text="Video" variant="caution" />
         </a>
       )
     }
