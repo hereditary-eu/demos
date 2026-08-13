@@ -1,10 +1,12 @@
 ---
 import { getCollection, render } from "astro:content";
+import { marked } from "marked";
+import { baseUrl } from "marked-base-url";
+
 import StarlightPage from "@astrojs/starlight/components/StarlightPage.astro";
 import Demo from "../../components/Demo.astro";
 export async function getStaticPaths() {
     const systems = await getCollection("systems");
-    console.log("systems", systems);
     return systems.map((system) => ({
         params: { id: system.id },
         props: { system: system },
@@ -12,6 +14,28 @@ export async function getStaticPaths() {
 }
 const { system } = Astro.props;
 const { Content } = await render(system);
+let readmeContent = null;
+if (system.data.code && system.data.code.startsWith("https://github.com")) {
+    // fetch the README.md from the GitHub repository and render it as markdown
+    const readmeUrl = `${system.data.code}/raw/main/README.md`;
+    const response = await fetch(readmeUrl);
+    if (response.ok) {
+        readmeContent = await response.text();
+        // const { Content: RenderedReadme } = await render({
+        //     body: readmeContent,
+        //     collection: "systems",
+        //     data:{
+        //         title: `${system.data.title} README`,
+        //     },
+        //     id: `${system.id}-readme`,
+        //     filePath: `${system.id}-readme.md`,
+        // });
+        // ReadmeContent = RenderedReadme;
+        marked.use(baseUrl(`${system.data.code}/raw/main/`));
+        readmeContent = marked.parse(readmeContent);
+    }
+    // console.log("ReadmeContent", ReadmeContent);
+}
 ---
 
 <StarlightPage frontmatter={{ title: system.data.title, template: "splash" }}>
@@ -19,7 +43,7 @@ const { Content } = await render(system);
         title={system.data.title}
         image={system.data.image}
         link={system.data.link}
-        local_link={system.data.local_link}
+        local_link=`/systems/${system.id}`
         code={system.data.code}
         paper={system.data.paper}
         video={system.data.video}
@@ -27,4 +51,5 @@ const { Content } = await render(system);
         documentation={system.data.documentation}
     />
     <Content />
+    {readmeContent && <div set:html={readmeContent} />}
 </StarlightPage>

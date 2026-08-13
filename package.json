@@ -11,7 +11,10 @@
   },
   "dependencies": {
     "@astrojs/starlight": "^0.40.0",
+    "@astropub/md": "^1.0.0",
     "astro": "^6.4.6",
+    "marked": "^18.0.9",
+    "marked-base-url": "^1.1.10",
     "sharp": "^0.35.1"
   },
   "devDependencies": {
