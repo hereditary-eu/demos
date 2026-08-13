@@ -10,7 +10,6 @@ const systemsCollection = defineCollection({
     image: image().optional(),
     image_url: z.string().optional(),
     link: z.string().optional(),
-    local_link: z.string().optional(),
     code: z.string().optional(),
     video: z.string().optional(),
     contact: z.string().optional(),
