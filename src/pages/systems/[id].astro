@@ -2,7 +2,6 @@
 import { getCollection, render } from "astro:content";
 import StarlightPage from "@astrojs/starlight/components/StarlightPage.astro";
 import Demo from "../../components/Demo.astro";
-// 1. Generate a new path for every collection entry
 export async function getStaticPaths() {
     const systems = await getCollection("systems");
     console.log("systems", systems);
@@ -11,7 +10,6 @@ export async function getStaticPaths() {
         props: { system: system },
     }));
 }
-// 2. For your template, you can get the entry directly from the prop
 const { system } = Astro.props;
 const { Content } = await render(system);
 ---

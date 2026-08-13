@@ -24,11 +24,11 @@ import StarlightPage from "@astrojs/starlight/components/StarlightPage.astro";
 import { getImage } from "astro:assets";
 import { getCollection } from "astro:content";
 const systems = await getCollection("systems");
-console.log("systems", systems);
+// console.log("systems", systems);
 ---
 
-<StarlightPage frontmatter={{ title: "Test", template: "splash" }}>
-  Within the Horizon Europe Project [HEREDITARY](https://hereditary-project.eu/)
+<StarlightPage frontmatter={{ title: "Hereditary Demos & Visualisation Components", template: "splash" }}>
+  Within the Horizon Europe Project <a href="https://hereditary-project.eu/">HEREDITARY</a>
   (running from 2024-2027), we collaborate with different partners from medical
   research, machine learning, databases and other fields on the visualization of
   multimodal, distributed clinical and research data, building various
@@ -37,11 +37,11 @@ console.log("systems", systems);
   webpage demonstrates many of the visualization approaches we are developing,
   making them available for interested parties to try out. For any questions,
   comments or suggestions please contact the TU Graz HEREDITARY team at
-  demos.hereditary@mlist.tugraz.at.
+  <a href="mailto:demos.hereditary@mlist.tugraz.at">demos.hereditary@mlist.tugraz.at</a>.
 
   <Collapsible title="More Information">
-    Within the Horizon Europe project
-    [HEREDITARY](https://hereditary-project.eu/) (HetERogeneous sEmantic Data
+    Within the Horizon Europe project <a href="https://hereditary-project.eu/">HEREDITARY</a>
+    (HetERogeneous sEmantic Data
     integratIon for the guT-bRain interplaY, GA 101137074), TU Graz works in
     close collaboration with several partners across the consortium, including
     experts in medical research, federated infrastructures, machine learning,
@@ -82,7 +82,7 @@ console.log("systems", systems);
           local_link={system.data.local_link}
           code={system.data.code}
           paper={system.data.paper}
-          paper-title={system.data["paper-title"]}
+          paper-title={system.data.paper_title}
           video={system.data.video}
           contact={system.data.contact}
         >

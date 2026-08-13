@@ -17,6 +17,7 @@ const systemsCollection = defineCollection({
     description: z.string().optional(),
     paper: z.string().optional(),
     documentation: z.string().optional(),
+    paper_title: z.string().optional(),
 
   }),
   loader: glob({ base: './src/content/systems', pattern: '**/*.{md,mdx}' }),
