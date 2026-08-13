@@ -16,18 +16,40 @@ const { system } = Astro.props;
 const { Content } = await render(system);
 let readmeContent = null;
 if (system.data.code && system.data.code.startsWith("https://github.com")) {
+    const GH_TOKEN = import.meta.env.GH_TOKEN || process.env.GH_TOKEN;
+    if (!GH_TOKEN) {
+        console.warn(
+            "GH_TOKEN is not set. Please set it in your environment variables to increase API rate limits.",
+        );
+    }
     // fetch the README.md from the GitHub repository and render it as markdown
     const codeUrl = system.data.code.trimEnd().replace(/\/$/, ""); // remove trailing slash if present
     // get main branch name from GitHub API
-    const apiUrl = codeUrl.replace("https://github.com", "https://api.github.com/repos") + "/branches";
-    const apiResponse = await fetch(apiUrl);
+    const apiUrl =
+        codeUrl.replace("https://github.com", "https://api.github.com/repos") +
+        "/branches";
+    const apiResponse = await fetch(apiUrl, {
+        headers: GH_TOKEN
+            ? {
+                  Authorization: `token ${GH_TOKEN}`,
+              }
+            : {},
+    });
     if (!apiResponse.ok) {
-        console.log(`Failed to fetch branch info from ${apiUrl}: ${apiResponse.status} ${apiResponse.statusText}`);
+        console.log(
+            `Failed to fetch branch info from ${apiUrl}: ${apiResponse.status} ${apiResponse.statusText}`,
+        );
     }
     const branches = await apiResponse.json();
     const mainBranchName = branches[0]?.name || "main";
     const readmeUrl = `${codeUrl}/raw/${mainBranchName}/README.md`;
-    const response = await fetch(readmeUrl);
+    const response = await fetch(readmeUrl, {
+        headers: GH_TOKEN
+            ? {
+                  Authorization: `token ${GH_TOKEN}`,
+              }
+            : {},
+    });
     if (response.ok) {
         readmeContent = await response.text();
         // const { Content: RenderedReadme } = await render({
@@ -42,11 +64,13 @@ if (system.data.code && system.data.code.startsWith("https://github.com")) {
         // ReadmeContent = RenderedReadme;
         marked.use(baseUrl(`${codeUrl}/raw/${mainBranchName}/`));
         readmeContent = marked.parse(readmeContent);
-    }else{
-        console.log(`Failed to fetch README.md from ${readmeUrl}: ${response.status} ${response.statusText}`);
+    } else {
+        console.log(
+            `Failed to fetch README.md from ${readmeUrl}: ${response.status} ${response.statusText}`,
+        );
     }
     // console.log("ReadmeContent", ReadmeContent);
-}else{
+} else {
     console.log("System does not have a GitHub repository:", system.id);
 }
 ---
