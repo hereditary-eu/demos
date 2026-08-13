@@ -17,7 +17,16 @@ const { Content } = await render(system);
 let readmeContent = null;
 if (system.data.code && system.data.code.startsWith("https://github.com")) {
     // fetch the README.md from the GitHub repository and render it as markdown
-    const readmeUrl = `${system.data.code}/raw/main/README.md`;
+    const codeUrl = system.data.code.trimEnd().replace(/\/$/, ""); // remove trailing slash if present
+    // get main branch name from GitHub API
+    const apiUrl = codeUrl.replace("https://github.com", "https://api.github.com/repos") + "/branches";
+    const apiResponse = await fetch(apiUrl);
+    if (!apiResponse.ok) {
+        console.log(`Failed to fetch branch info from ${apiUrl}: ${apiResponse.status} ${apiResponse.statusText}`);
+    }
+    const branches = await apiResponse.json();
+    const mainBranchName = branches[0]?.name || "main";
+    const readmeUrl = `${codeUrl}/raw/${mainBranchName}/README.md`;
     const response = await fetch(readmeUrl);
     if (response.ok) {
         readmeContent = await response.text();
@@ -31,10 +40,14 @@ if (system.data.code && system.data.code.startsWith("https://github.com")) {
         //     filePath: `${system.id}-readme.md`,
         // });
         // ReadmeContent = RenderedReadme;
-        marked.use(baseUrl(`${system.data.code}/raw/main/`));
+        marked.use(baseUrl(`${codeUrl}/raw/${mainBranchName}/`));
         readmeContent = marked.parse(readmeContent);
+    }else{
+        console.log(`Failed to fetch README.md from ${readmeUrl}: ${response.status} ${response.statusText}`);
     }
     // console.log("ReadmeContent", ReadmeContent);
+}else{
+    console.log("System does not have a GitHub repository:", system.id);
 }
 ---
 
