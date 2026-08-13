@@ -27,7 +27,6 @@ export default defineConfig({
           href: "https://www.linkedin.com/company/hereditary-eu",
         },
       ],
-      sidebar: [],
       customCss: ["./src/main.scss"],
     }),
   ],

@@ -1,0 +1,320 @@
+---
+import { Card, CardGrid } from "@astrojs/starlight/components";
+import Demo from "../components/Demo.astro";
+import Footer from "../components/Footer.astro";
+import Collapsible from "../components/Collapsible.astro";
+
+import PrivEval from "../assets/demos/PrivEval.png";
+import ClustersInFocusImage from "../assets/demos/clusters-in-focus.png";
+import NeurodegenVisImage from "../assets/demos/neurodegen-vis.png";
+import OnSetImage from "../assets/demos/onset.png";
+import GIBBERImage from "../assets/demos/gibber.png";
+import ParamInterImage from "../assets/demos/param-inter.png";
+import GutBrainImage from "../assets/demos/gut-brain-viewer.png";
+import InSilicoImage from "../assets/demos/in-silico-cancer-cell-simulation.png";
+import NeuronalImage from "../assets/demos/neuronal-brain-simulation.png";
+import AlvisImage from "../assets/demos/alvis.png";
+import DiffCellSigImage from "../assets/demos/diff-cell-sig.png";
+import TTYGImage from "../assets/demos/talk-to-your-graph.png";
+import EEGViewer from "../assets/demos/niklas-eeg-viewer.png";
+import XEEGImage from "../assets/demos/xeeg.png";
+import FederatedImage from "../assets/demos/federated.png";
+import HereditaryFLImage from "../assets/demos/hereditary-fl.png";
+import StarlightPage from "@astrojs/starlight/components/StarlightPage.astro";
+import { getImage } from "astro:assets";
+import { getCollection } from "astro:content";
+const systems = await getCollection("systems");
+console.log("systems", systems);
+---
+
+<StarlightPage frontmatter={{ title: "Test", template: "splash" }}>
+  Within the Horizon Europe Project [HEREDITARY](https://hereditary-project.eu/)
+  (running from 2024-2027), we collaborate with different partners from medical
+  research, machine learning, databases and other fields on the visualization of
+  multimodal, distributed clinical and research data, building various
+  visualisation prototypes and demos. Many of the demos are developed as part of
+  the Work Package 5 (WP5) efforts, which focusses on visualisation. This
+  webpage demonstrates many of the visualization approaches we are developing,
+  making them available for interested parties to try out. For any questions,
+  comments or suggestions please contact the TU Graz HEREDITARY team at
+  demos.hereditary@mlist.tugraz.at.
+
+  <Collapsible title="More Information">
+    Within the Horizon Europe project
+    [HEREDITARY](https://hereditary-project.eu/) (HetERogeneous sEmantic Data
+    integratIon for the guT-bRain interplaY, GA 101137074), TU Graz works in
+    close collaboration with several partners across the consortium, including
+    experts in medical research, federated infrastructures, machine learning,
+    data management and related fields, to develop innovative approaches for the
+    visualisation of multimodal, distributed clinical and research data.
+    Together, they addresses key challenges in the study of neurodegenerative
+    diseases and explores neural interactions along the gut-brain axis. This
+    includes the development and evaluation of interactive visualisations that
+    support the exploration of diverse medical data types, including images,
+    biosignals, time series and high-dimensional observational data. A
+    particular focus of this work is the integration of Large Language Model
+    technologies, in form of conversational interfaces that help users interact
+    with data, understand visual representations and identify meaningful
+    patterns through natural language. This webpage showcases a selection of the
+    visualisation approaches being developed within the HEREDITARY project,
+    making them accessible for exploration by interested users in a wider
+    community.
+
+    {/* HetERogeneous sEmantic Data integratIon for the guT-bRain interplaY */}
+    {
+      /* Specific domain questions address studying neurodegenerative diseases, and explore neural interactions along the gut-brain axis. */
+    }
+    {
+      /* We develop, apply and evaluate interactive visualizations for multimodal medical data, including imaging data, bio-signal data, time series data, and high-dimensional observational data. */
+    }
+    {
+      /* A focus of our work is to include Large Language Model technologies in form of chat agents, which help in answering natural language questions by users regarding input data, visual representations, and explain patterns. */
+    }
+  </Collapsible>
+
+  <CardGrid stagger>
+    {
+      systems.map((system) => (
+        <Demo
+          title={system.data.title}
+          image={system.data.image}
+          link={system.data.link}
+          local_link={system.data.local_link}
+          code={system.data.code}
+          paper={system.data.paper}
+          paper-title={system.data["paper-title"]}
+          video={system.data.video}
+          contact={system.data.contact}
+        >
+          {system.data.description}
+        </Demo>
+      ))
+    }
+    <Demo
+      title="Clusters in Focus"
+      image={ClustersInFocusImage}
+      link="https://hereditary.cgv.tugraz.at/cif"
+      code="https://github.com/hereditary-eu/ClustersInFocus"
+      paper="https://doi.org/10.2312/vcbm.20251250"
+      paper-title="Clusters in Focus: A Simple and Robust Detail-On-Demand Dashboard for Patient Data"
+      video="https://www.youtube.com/watch?v=juTT_xgT6Yw"
+      contact="Peter Waldert"
+    >
+      Exploring tabular datasets to understand how different feature pairs
+      partition data into meaningful cohorts is crucial in domains such as
+      biomarker discovery, yet comparing clusters across multiple feature pair
+      projections is challenging. We introduce Clusters in Focus, an interactive
+      visual analytics dashboard designed to address this gap.
+    </Demo>
+    <Demo
+      title="Neurodegen-Vis"
+      image={NeurodegenVisImage}
+      link="https://hereditary.cgv.tugraz.at/neurodegen-vis/"
+      code="https://github.com/hereditary-eu/Neurodegen-Vis"
+      paper="https://ceur-ws.org/Vol-4172/paper1.pdf"
+      paper-title="Privacy-Preserving Visual Exploration of Healthcare Data with a Language Model Integration"
+      video="https://www.youtube.com/watch?v=Dx4C1wNZ3Fk"
+      contact="Peter Waldert"
+    >
+      Healthcare records, measurements and datasets can quickly become highly
+      complex in terms of storage, anonymisation and interpretation. With
+      Neurodegen-Vis, we present a practical toolkit to anonymise, visualise and
+      help interpret medical data in a Visual Analytics dashboard, with seamless
+      integration of a Large Language Model (LLM).
+    </Demo>
+    <Demo
+      title="OnSET"
+      image={OnSetImage}
+      link="https://onset.cgv.tugraz.at/"
+      code="https://github.com/hereditary-eu/onset"
+      paper="https://dl.acm.org/doi/10.1145/3726302.3730148"
+      paper-title="OnSET: Ontology and Semantic Exploration Toolkit"
+      video="https://www.youtube.com/watch?v=Q2ZeioBnfhQ"
+      contact="Benedikt Kantz"
+    >
+      OnSET is designed to enable a more explorative ontology querying
+      experience for non-expert users, and to build a quick understanding of the
+      scale and nature of a KG that is in use. The toolkit consists of multiple
+      smaller systems, complimenting each other.
+    </Demo>
+    <Demo
+      title="GIBBER"
+      image={GIBBERImage}
+      local_link="./systems/gibber"
+      link="https://hereditary.cgv.tugraz.at/gibber/"
+      code="https://github.com/hereditary-eu/gibber"
+      video="https://cloud.tugraz.at/index.php/s/zzGoge8TcrABtGe"
+      contact="Benedikt Kantz"
+    >
+      GIBBER helps experts to associate Diseases, Genes, and Brain regions!
+    </Demo>
+    <Demo
+      title="ParamInter"
+      image={ParamInterImage}
+      link="https://hereditary.cgv.tugraz.at/param-inter/"
+      code="https://github.com/Dakantz/ParamInter"
+      paper="https://arxiv.org/abs/2509.19202"
+      paper-title="AlloyInter: Visualising Alloy Mixture Interpolations in t-SNE Representations"
+      contact="Benedikt Kantz"
+    >
+      ParamInter is a novel toolset to explore continous input-output parameter
+      sets interactively through guidance by XAI and UCQ. The approach
+      interpolates between selected input samples over an embedded subspace,
+      guiding the user towards required solutions for their target output
+      parameters.
+    </Demo>
+    <Demo
+      title="Gut-Brain Viewer"
+      image={GutBrainImage}
+      link="https://hereditary.cgv.tugraz.at/gut-brain-viewer"
+      code="https://github.com/hereditary-eu/gut-brain-visualization"
+      video="https://www.youtube.com/watch?v=ImEzEN0JuEc"
+      contact="Casper van Leeuwen"
+    >
+      The Gut-Brain Viewer visualizes gut microbiota-brain links from LICA
+      outputs via three linked views. An interactive microbiota matrix shows
+      organism Z-scores per component with thresholding and selection. A
+      modality stacked-bar view displays percent contributions and loads the
+      selected modality. Interactive brain slices and volumetric renders show
+      voxel Z-scores for SN, ECN, or DMN from 4D NIfTI files.
+    </Demo>
+    <Demo
+      title="Multi-Component State Model Visualisation"
+      image={InSilicoImage}
+      link="https://in-silico-cancer-cell.waldert.at/"
+      code="https://github.com/MrP01/InSilicoCancerCell/"
+      paper="https://conferences.eg.org/vcbm2025/wp-content/uploads/sites/26/2025/09/Optimization-of-a-Parametrized-Time-Dependent-Hidden-Markov-Model-by-Example-of-an-Electrophysiological-Cancer-Cell.pdf"
+      paper-title="Optimization of a Parametrized, Time-Dependent Hidden Markov Model by Example of an Electrophysiological Cancer Cell"
+      contact="Peter Waldert"
+    >
+      This component is concerned with the visualisation of a multi-component
+      state model coupled (biological) system. Each component can be modelled
+      through its own individual state model, including dependencies on the
+      environment such as ion concentrations, voltages or other variables.
+    </Demo>
+    <Demo
+      title="EEGlass"
+      image={XEEGImage}
+      link="https://hereditary.cgv.tugraz.at/all-in-on-eeg/"
+      paper-title="EEGlass: A Fully Interpretable EEG Dementia Screening Assistant"
+      contact="Peter Waldert"
+    >
+      To make clinical diagnoses more understandable, we present a visual
+      interactive dashboard on top of the efficient xEEG classifier network
+      architecture, which puts a special emphasis on explainibility of the model
+      and outcome. This dataset and model focusses on Alzheimer's Disease (AD)
+      and Frontotemporal Dementia (FTD), every step in the classification is
+      presented in a visual and understandable way, on top of an integrated EEG
+      database viewer.
+    </Demo>
+    <Demo
+      title="Differential Cell Signaling"
+      image={DiffCellSigImage}
+      link="https://hereditary.cgv.tugraz.at/differential-cell-signaling/"
+      code="https://github.com/hereditary-eu/Differential-Cell-Signaling"
+      contact="Gaia Tussardi"
+    >
+      An interactive dashboard for exploring differential cell-signaling
+      networks by integrating cell-cell communication inference with
+      transcription factor (TF) activities inferred from scRNA-seq. It
+      highlights the ligands, receptors, TFs, and cell types that drive disease
+      mechanisms, traces signaling loops, and supports on-the-fly GO, KEGG, and
+      Reactome over-representation analyses. An Amyotrophic Lateral Sclerosis
+      (ALS) case study is included, enabling the biomedical inspection of
+      sporadic ALS, familial ALS, and their contrasts.
+    </Demo>
+    <Demo
+      title="PrivEval: A Tool For Interactive Evaluation Of Privacy Metrics In Synthetic Data Generation"
+      image={PrivEval}
+      code="https://github.com/hereditary-eu/PrivEval"
+      paper="https://dl.acm.org/doi/10.14778/3750601.3750649"
+      paper-title="PrivEval: A Tool for Interactive Evaluation of Privacy Metrics in Synthetic Data Generation"
+      contact="Frederik Marinus Trudslev"
+    >
+      Synthetic data generation is the process of generating a new synthetic
+      dataset based on the statistical properties of a confidential existing
+      dataset. Differential privacy is the property of such mechanism that
+      establishes the level of privacy, when sharing such data. To ensure
+      differential privacy, noise is injected into the statistics learned from
+      the dataset, entailing a trade-off between privacy and utility. Privacy is
+      then measured via a set of privacy metrics that usually establish a lower
+      bound on a few aspects of the privacy-utility tradeoff. PrivEval is a tool
+      to make privacy assessment more transparent through evaluation of several
+      privacy metrics on both a single user and the overall dataset.
+    </Demo>
+    <Demo
+      title="Flower Learning Dashboard"
+      image={HereditaryFLImage}
+      code="https://github.com/kalpathy/hereditary_fl"
+      contact="Jayashree Kalpathy-Cramer"
+    >
+      An interactive Streamlit dashboard for exploring Federated Learning (FL)
+      concepts, including domain shift, aggregation strategies, and the benefits
+      of FL for biased data distributions. Based on the Flower framework.
+    </Demo>
+    <Demo
+      title="Federated Learning Dashboard"
+      image={FederatedImage}
+      contact="Peter Waldert"
+    >
+      Dashboard for tracking and understanding the training of federated machine
+      learning models, allowing individual parties to view their local dataset,
+      contribution to training and compare local to global data.
+    </Demo>
+    <Demo title="Alvis" image={AlvisImage} contact="Peter Waldert">
+      Amyotrophic Lateral Sclerosis (ALS) is a fatal neurodegenerative disease
+      affecting over 300,000 people worldwide. Currently, there is no cure—only
+      treatments aimed at improving patients' quality of life. We introduce
+      ALviS, a prototype designed for analyzing ALS datasets, providing a
+      foundational framework for visualizing and exploring the multivariate ALS
+      dataset.
+    </Demo>
+    <Demo
+      title="Neuronal Lens"
+      image={NeuronalImage}
+      link="https://hereditary.cgv.tugraz.at/neuronal-lens/"
+      paper-title="Interactive 3D Exploration of Large-Scale Neuronal Network Simulations with a Graph Lens"
+      contact="Peter Waldert"
+    >
+      The Neuronal Lens tool visualises a simulation of the brain, focussing on
+      the brain connectome and activity data. On the left, we have a shared view
+      between the neuron graph and a perspective view, with an integrated lens.
+      On the right, the varying quantities described above are displayed, for
+      one selected neuron, as a coloured line chart. The colour intensity is
+      used to indicate areas of high activity, although that can be adjusted.
+    </Demo>
+    <Demo
+      title="Talk To Your Gene-Disease Graph"
+      image={TTYGImage}
+      documentation="https://graphdb.ontotext.com/documentation/11.3/talk-to-graph.html"
+      contact="Ivelina Nikolova-Koleva"
+    >
+      By enabling users to communicate in natural language rather than technical
+      query languages like SPARQL, Talk To Your Graph (TTYG) reduces technical
+      barriers for non-expert users. TTYG enables intuitive access to complex
+      data while remaining independent of the underlying schema and resilient to
+      subsequent modifications in the knowledge graph's organization. The Talk
+      To Your Gene-Disease Graph demonstrator is able to answer natural language
+      questions on a custom-curated knowledge graph about gene-disease
+      associations. It allows for identification of novel biological targets of
+      new potential drug agents and for understanding of the disease biology -
+      related biological processes, mechanism, tissue/organ/cell profiling,
+      interacting partners, etc.
+    </Demo>
+    <Demo
+      title="Visual Inspection of EEG Data Frame and Model"
+      image={EEGViewer}
+      contact="Niklas Tscheppe"
+    >
+      EEG measurements are an important biosignal used to assess brain health.
+      For example, EEG helps diagnose neurodegenerative diseases and monitor
+      patient status. Selecting which EEG signals to use for model training is
+      time-consuming and often uncertain. Visualization tools can help screen
+      EEG time windows and make selection decisions faster. A dashboard should
+      display OK/NOK labels and allow comparison against clusters, frequency
+      bands, and sensors.
+    </Demo>
+  </CardGrid>
+
+  <Footer />
+</StarlightPage>
