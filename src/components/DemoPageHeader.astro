@@ -2,70 +2,58 @@
 import { Badge, Card } from "@astrojs/starlight/components";
 import Image from "astro/components/Image.astro";
 import StatusFlare from "./StatusFlare.astro";
-const {
-  title,
-  image,
-  link,
-  local_link,
-  code,
-  paper,
-  video,
-  contact,
-  documentation,
-} = Astro.props;
+const { title, image, link, local_link, code, paper, video, contact, documentation } = Astro.props;
 const paperTitle = Astro.props["paper-title"];
 const linkSystem = local_link || link;
 ---
 
-<Card title="">
-  <div class="demo-image-wrapper">
-    <a href={linkSystem} target="_blank">
-      <Image src={image} alt={title} style="margin-bottom: 10px; width: 100%;" />
-    </a>
-  </div>
-  <slot />
-  <div style="display: flex; gap: 5px; justify-content: right;">
-    {
-      link && (
-        <a href={link} target="_blank">
-          <Badge text="Live Demo" variant="danger" />
-        </a>
-      )
-    }
-    {
-      documentation && (
-        <a href={documentation}>
-          <Badge text="Documentation" variant="default" />
-        </a>
-      )
-    }
-    {
-      code && (
-        <a href={code}>
-          <Badge text="Code Available" variant="tip" />
-        </a>
-      )
-    }
-    {
-      paper && (
-        <a href={paper} title={paperTitle}>
-          <Badge text="Paper" variant="success" />
-        </a>
-      )
-    }
-    {
-      video && (
-        <a href={video} target="_blank">
-          <Badge text="Video" variant="caution" />
-        </a>
-      )
-    }
-  </div>
-  <div class="demo-footer">
-    {link && <StatusFlare url={link} />}
-    <p class="demo-contact">Contact: {contact}</p>
-  </div>
-</Card>
+<div class="demo-image-wrapper">
+  <a href={linkSystem} target="_blank">
+    <Image src={image} alt={title} style="margin-bottom: 10px; width: 100%;" />
+  </a>
+</div>
+<slot />
+<div style="display: flex; gap: 5px; justify-content: right;">
+  {
+    link && (
+      <a href={link} target="_blank">
+        <Badge text="Live Demo" variant="danger" />
+      </a>
+    )
+  }
+  {
+    documentation && (
+      <a href={documentation}>
+        <Badge text="Documentation" variant="default" />
+      </a>
+    )
+  }
+  {
+    code && (
+      <a href={code}>
+        <Badge text="Code Available" variant="tip" />
+      </a>
+    )
+  }
+  {
+    paper && (
+      <a href={paper} title={paperTitle}>
+        <Badge text="Paper" variant="success" />
+      </a>
+    )
+  }
+  {
+    video && (
+      <a href={video} target="_blank">
+        <Badge text="Video" variant="caution" />
+      </a>
+    )
+  }
+</div>
+<div class="demo-footer">
+  {link && <StatusFlare url={link} />}
+  <p class="demo-contact">Contact: {contact}</p>
+</div>
 
 <style>
   .demo-image-wrapper {

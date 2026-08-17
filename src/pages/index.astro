@@ -5,44 +5,37 @@ import Footer from "../components/Footer.astro";
 import Collapsible from "../components/Collapsible.astro";
 
 import StarlightPage from "@astrojs/starlight/components/StarlightPage.astro";
-import { getImage } from "astro:assets";
 import { getCollection } from "astro:content";
 const systems = await getCollection("systems");
-// console.log("systems", systems);
 ---
 
-<StarlightPage frontmatter={{ title: "Hereditary Demos & Visualisation Components", template: "splash" }}>
-  Within the Horizon Europe Project <a href="https://hereditary-project.eu/">HEREDITARY</a>
-  (running from 2024-2027), we collaborate with different partners from medical
-  research, machine learning, databases and other fields on the visualization of
-  multimodal, distributed clinical and research data, building various
-  visualisation prototypes and demos. Many of the demos are developed as part of
-  the Work Package 5 (WP5) efforts, which focusses on visualisation. This
-  webpage demonstrates many of the visualization approaches we are developing,
-  making them available for interested parties to try out. For any questions,
-  comments or suggestions please contact the TU Graz HEREDITARY team at
-  <a href="mailto:demos.hereditary@mlist.tugraz.at">demos.hereditary@mlist.tugraz.at</a>.
+<StarlightPage
+  frontmatter={{
+    title: "Hereditary Demos & Visualisation Components",
+    template: "splash",
+  }}
+>
+  Within the Horizon Europe Project <a href="https://hereditary-project.eu/">HEREDITARY</a> (running from 2024-2027), we collaborate
+  with different partners from medical research, machine learning, databases and other fields on the visualization of multimodal,
+  distributed clinical and research data, building various visualisation prototypes and demos. Many of the demos are developed
+  as part of the Work Package 5 (WP5) efforts, which focusses on visualisation. This webpage demonstrates many of the visualization
+  approaches we are developing, making them available for interested parties to try out. For any questions, comments or suggestions
+  please contact the TU Graz HEREDITARY team at <a href="mailto:demos.hereditary@mlist.tugraz.at"
+    >demos.hereditary@mlist.tugraz.at</a
+  >.
 
   <Collapsible title="More Information">
     Within the Horizon Europe project <a href="https://hereditary-project.eu/">HEREDITARY</a>
-    (HetERogeneous sEmantic Data
-    integratIon for the guT-bRain interplaY, GA 101137074), TU Graz works in
-    close collaboration with several partners across the consortium, including
-    experts in medical research, federated infrastructures, machine learning,
-    data management and related fields, to develop innovative approaches for the
-    visualisation of multimodal, distributed clinical and research data.
-    Together, they addresses key challenges in the study of neurodegenerative
-    diseases and explores neural interactions along the gut-brain axis. This
-    includes the development and evaluation of interactive visualisations that
-    support the exploration of diverse medical data types, including images,
-    biosignals, time series and high-dimensional observational data. A
-    particular focus of this work is the integration of Large Language Model
-    technologies, in form of conversational interfaces that help users interact
-    with data, understand visual representations and identify meaningful
-    patterns through natural language. This webpage showcases a selection of the
-    visualisation approaches being developed within the HEREDITARY project,
-    making them accessible for exploration by interested users in a wider
-    community.
+    (HetERogeneous sEmantic Data integratIon for the guT-bRain interplaY, GA 101137074), TU Graz works in close collaboration
+    with several partners across the consortium, including experts in medical research, federated infrastructures, machine
+    learning, data management and related fields, to develop innovative approaches for the visualisation of multimodal, distributed
+    clinical and research data. Together, they addresses key challenges in the study of neurodegenerative diseases and explores
+    neural interactions along the gut-brain axis. This includes the development and evaluation of interactive visualisations
+    that support the exploration of diverse medical data types, including images, biosignals, time series and high-dimensional
+    observational data. A particular focus of this work is the integration of Large Language Model technologies, in form of
+    conversational interfaces that help users interact with data, understand visual representations and identify meaningful
+    patterns through natural language. This webpage showcases a selection of the visualisation approaches being developed
+    within the HEREDITARY project, making them accessible for exploration by interested users in a wider community.
 
     {/* HetERogeneous sEmantic Data integratIon for the guT-bRain interplaY */}
     {

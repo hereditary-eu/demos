@@ -10,14 +10,17 @@
     "astro": "astro"
   },
   "dependencies": {
-    "@astrojs/starlight": "^0.40.0",
+    "@astrojs/starlight": "^0.41.7",
     "@astropub/md": "^1.0.0",
-    "astro": "^6.4.6",
+    "astro": "^7.2.2",
     "marked": "^18.0.9",
     "marked-base-url": "^1.1.10",
-    "sharp": "^0.35.1"
+    "sharp": "^0.35.3"
   },
   "devDependencies": {
-    "sass-embedded": "^1.100.0"
+    "sass-embedded": "^1.102.0"
+  },
+  "prettier": {
+    "printWidth": 120
   }
 }
