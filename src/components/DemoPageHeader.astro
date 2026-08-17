@@ -2,7 +2,6 @@
 import { Badge, Card } from "@astrojs/starlight/components";
 import Image from "astro/components/Image.astro";
 import StatusFlare from "./StatusFlare.astro";
-import CardCustom from "./CardCustom.astro";
 const {
   title,
   image,
@@ -18,21 +17,10 @@ const paperTitle = Astro.props["paper-title"];
 const linkSystem = local_link || link;
 ---
 
-<CardCustom title={title}>
-  <span slot="title">
-    {
-      local_link ? (
-        <a href={local_link} class="demo-title">
-          {title}
-        </a>
-      ) : (
-        <span>{title}</span>
-      )
-    }
-  </span>
+<Card title="">
   <div class="demo-image-wrapper">
     <a href={linkSystem} target="_blank">
-      <Image src={image} alt={title} style="margin-bottom: 10px;" />
+      <Image src={image} alt={title} style="margin-bottom: 10px; width: 100%;" />
     </a>
   </div>
   <slot />
@@ -77,7 +65,7 @@ const linkSystem = local_link || link;
     {link && <StatusFlare url={link} />}
     <p class="demo-contact">Contact: {contact}</p>
   </div>
-</CardCustom>
+</Card>
 
 <style>
   .demo-image-wrapper {

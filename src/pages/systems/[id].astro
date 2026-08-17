@@ -5,6 +5,7 @@ import { baseUrl } from "marked-base-url";
 
 import StarlightPage from "@astrojs/starlight/components/StarlightPage.astro";
 import Demo from "../../components/Demo.astro";
+import DemoPageHeader from "../../components/DemoPageHeader.astro";
 export async function getStaticPaths() {
     const systems = await getCollection("systems");
     return systems.map((system) => ({
@@ -76,7 +77,7 @@ if (system.data.code && system.data.code.startsWith("https://github.com")) {
 ---
 
 <StarlightPage frontmatter={{ title: system.data.title, template: "splash" }}>
-    <Demo
+    <DemoPageHeader
         title={system.data.title}
         image={system.data.image}
         link={system.data.link}
