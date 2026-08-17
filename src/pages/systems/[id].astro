@@ -15,54 +15,37 @@ export async function getStaticPaths() {
 }
 const { system } = Astro.props;
 const { Content } = await render(system);
-let readmeContent = null;
-if (system.data.code && system.data.code.startsWith("https://github.com")) {
-  const GH_TOKEN = import.meta.env.GH_TOKEN || process.env.GH_TOKEN;
-  if (!GH_TOKEN) {
-    console.warn("GH_TOKEN is not set. Please set it in your environment variables to increase API rate limits.");
+const GH_TOKEN = import.meta.env.GH_TOKEN || process.env.GH_TOKEN;
+if (!GH_TOKEN) {
+  console.warn("GH_TOKEN is not set. Please set it in your environment variables to increase API rate limits.");
+}
+
+async function ghFetch(url: string): Promise<Response> {
+  const response = await fetch(url, GH_TOKEN ? { headers: { Authorization: `token ${GH_TOKEN}` } } : {});
+  if (!response.ok) {
+    throw new Error(`Failed to fetch ${url}: ${response.status} ${response.statusText}`);
   }
-  // fetch the README.md from the GitHub repository and render it as markdown
-  const codeUrl = system.data.code.trimEnd().replace(/\/$/, ""); // remove trailing slash if present
-  // get main branch name from GitHub API
-  const apiUrl = codeUrl.replace("https://github.com", "https://api.github.com/repos") + "/branches";
-  const apiResponse = await fetch(apiUrl, {
-    headers: GH_TOKEN
-      ? {
-          Authorization: `token ${GH_TOKEN}`,
-        }
-      : {},
-  });
-  if (!apiResponse.ok) {
-    console.log(`Failed to fetch branch info from ${apiUrl}: ${apiResponse.status} ${apiResponse.statusText}`);
-  }
-  const branches = await apiResponse.json();
+  return response;
+}
+
+async function fetchReadme(codeUrl: string): Promise<string> {
+  const branches = await (
+    await ghFetch(codeUrl.replace("https://github.com", "https://api.github.com/repos") + "/branches")
+  ).json();
   const mainBranchName = branches[0]?.name || "main";
-  const readmeUrl = `${codeUrl}/raw/${mainBranchName}/README.md`;
-  const response = await fetch(readmeUrl, {
-    headers: GH_TOKEN
-      ? {
-          Authorization: `token ${GH_TOKEN}`,
-        }
-      : {},
-  });
-  if (response.ok) {
-    readmeContent = await response.text();
-    // const { Content: RenderedReadme } = await render({
-    //     body: readmeContent,
-    //     collection: "systems",
-    //     data:{
-    //         title: `${system.data.title} README`,
-    //     },
-    //     id: `${system.id}-readme`,
-    //     filePath: `${system.id}-readme.md`,
-    // });
-    // ReadmeContent = RenderedReadme;
-    marked.use(baseUrl(`${codeUrl}/raw/${mainBranchName}/`));
-    readmeContent = marked.parse(readmeContent);
-  } else {
-    console.log(`Failed to fetch README.md from ${readmeUrl}: ${response.status} ${response.statusText}`);
+  const readmeContent = await (await ghFetch(`${codeUrl}/raw/${mainBranchName}/README.md`)).text();
+  marked.use(baseUrl(`${codeUrl}/raw/${mainBranchName}/`));
+  return marked.parse(readmeContent) as string;
+}
+
+let readmeContent: string | null = null;
+if (system.data.code?.startsWith("https://github.com")) {
+  const codeUrl = system.data.code.trimEnd().replace(/\/$/, ""); // remove trailing slash if present
+  try {
+    readmeContent = await fetchReadme(codeUrl);
+  } catch (error) {
+    console.warn(`Could not render README for system "${system.id}" (${codeUrl}):`, error);
   }
-  // console.log("ReadmeContent", ReadmeContent);
 } else {
   console.log("System does not have a GitHub repository:", system.id);
 }
@@ -80,6 +63,40 @@ if (system.data.code && system.data.code.startsWith("https://github.com")) {
     contact={system.data.contact}
     documentation={system.data.documentation}
   />
+  {
+    system.data.link && (
+      <button class="start-demo">
+        <span class="start-icon">&#9658;</span>
+        Open the Demo
+      </button>
+    )
+  }
   <Content />
   {readmeContent && <div set:html={readmeContent} />}
 </StarlightPage>
+
+<style>
+  .start-demo {
+    display: block;
+    align-items: center;
+    gap: 0.6em;
+    padding: 0.6em 1.2em;
+    font-size: 1.25rem;
+    font-weight: 600;
+    color: white;
+    background: #2e7d32;
+    border: none;
+    border-radius: 0.5rem;
+    cursor: pointer;
+    margin: 0 auto;
+  }
+  .start-demo:hover {
+    filter: brightness(1.15);
+  }
+  .start-icon {
+    font-size: 1.1em;
+    line-height: 1;
+    margin-left: -5px;
+    margin-right: 5px;
+  }
+</style>
