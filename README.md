@@ -1,7 +1,8 @@
 ![The HEREDITARY Project](https://hereditary-project.eu/wp-content/uploads/2024/04/Hereditary_Vertical_primary-1.png)
 
-Our goal is to change the way we approach healthcare by unlocking insights that were previously impossible to obtain
+Welcome to the repo behind the HEREDITARY [Demos page](https://demos.hereditary-project.eu/)!
 
+Our goal is to change the way we approach healthcare by unlocking insights that were previously impossible to obtain.
 HEREDITARY aims to improve disease detection, treatment response preparation, and medical knowledge exploration through an integrated framework that incorporates diverse health data, including genetics, while ensuring privacy compliance.
 
 Its five-layered structure enables advanced federated analytics to uncover new insights into neurodegenerative and gut microbiome-related disorders.
