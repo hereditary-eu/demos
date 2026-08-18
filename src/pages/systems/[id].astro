@@ -2,6 +2,8 @@
 import { getCollection, render } from "astro:content";
 import { marked } from "marked";
 import { baseUrl } from "marked-base-url";
+import markedKatex from "marked-katex-extension";
+import "katex/dist/katex.min.css";
 
 import StarlightPage from "@astrojs/starlight/components/StarlightPage.astro";
 import DemoPageHeader from "../../components/DemoPageHeader.astro";
@@ -34,6 +36,7 @@ async function fetchReadme(codeUrl: string): Promise<string> {
   ).json();
   const mainBranchName = branches[0]?.name || "main";
   const readmeContent = await (await ghFetch(`${codeUrl}/raw/${mainBranchName}/README.md`)).text();
+  marked.use(markedKatex({ throwOnError: false, nonStandard: true }));
   marked.use(baseUrl(`${codeUrl}/raw/${mainBranchName}/`));
   return marked.parse(readmeContent) as string;
 }
