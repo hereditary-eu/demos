@@ -68,10 +68,10 @@ if (system.data.code?.startsWith("https://github.com")) {
   />
   {
     system.data.link && (
-      <button class="start-demo">
+      <a class="start-demo" href={system.data.link}>
         <span class="start-icon">&#9658;</span>
         Open the Demo
-      </button>
+      </a>
     )
   }
   <Content />
@@ -81,6 +81,8 @@ if (system.data.code?.startsWith("https://github.com")) {
 <style>
   .start-demo {
     display: block;
+    width: fit-content;
+    text-decoration: none;
     align-items: center;
     gap: 0.6em;
     padding: 0.6em 1.2em;
