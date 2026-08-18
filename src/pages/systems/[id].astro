@@ -75,10 +75,19 @@ if (system.data.code?.startsWith("https://github.com")) {
     )
   }
   <Content />
-  {readmeContent && <div set:html={readmeContent} />}
+  {readmeContent && <div class="readme" set:html={readmeContent} />}
 </StarlightPage>
 
 <style>
+  .readme {
+    min-width: 0;
+  }
+  .readme :global(pre) {
+    max-width: 100%;
+    overflow-x: auto;
+    white-space: pre-wrap;
+    overflow-wrap: anywhere;
+  }
   .start-demo {
     display: block;
     width: fit-content;
@@ -93,7 +102,7 @@ if (system.data.code?.startsWith("https://github.com")) {
     border: none;
     border-radius: 0.5rem;
     cursor: pointer;
-    margin: 0 auto;
+    margin: 20px auto;
   }
   .start-demo:hover {
     filter: brightness(1.15);
