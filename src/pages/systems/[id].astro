@@ -100,6 +100,9 @@ if (system.data.code?.startsWith("https://github.com")) {
   .readme {
     min-width: 0;
   }
+  .readme :global(img) {
+    display: inline-block; /* Starlight makes images block-level, breaking side-by-side <img> rows */
+  }
   .readme :global(pre) {
     max-width: 100%;
     overflow-x: auto;
