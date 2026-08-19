@@ -44,8 +44,13 @@ async function fetchReadme(codeUrl: string): Promise<string> {
   const mainBranchName = branches[0]?.name || "main";
   const readmeContent = await (await ghFetch(`${codeUrl}/raw/${mainBranchName}/README.md`)).text();
   marked.use(markedKatex({ throwOnError: false, nonStandard: true }));
-  marked.use(baseUrl(`${codeUrl}/raw/${mainBranchName}/`));
-  return marked.parse(readmeContent) as string;
+  const base = `${codeUrl}/raw/${mainBranchName}/`;
+  marked.use(baseUrl(base));
+  // marked-base-url only rewrites markdown links/images, not raw HTML tags in the README
+  return (marked.parse(readmeContent) as string).replace(
+    /(<(?:img|a|source)\b[^>]*?\s(?:src|href)=")(?!\w+:|\/\/|#)\.?\/?/gi,
+    `$1${base}`,
+  );
 }
 
 let readmeContent: string | null = null;
