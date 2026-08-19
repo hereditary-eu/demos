@@ -5,10 +5,8 @@ import Footer from "../components/Footer.astro";
 import Collapsible from "../components/Collapsible.astro";
 
 import StarlightPage from "@astrojs/starlight/components/StarlightPage.astro";
-import { getCollection } from "astro:content";
-const systems = (await getCollection("systems")).sort(
-  (a, b) => Number(!!b.data.link) - Number(!!a.data.link),
-);
+import { getSystems } from "../systems";
+const systems = await getSystems();
 ---
 
 <StarlightPage
