@@ -67,6 +67,13 @@ if (system.data.code?.startsWith("https://github.com")) {
 ---
 
 <StarlightPage frontmatter={{ title: system.data.title, tableOfContents: false }} sidebar={sidebar}>
+  <button
+    class="permalink"
+    data-url={`https://hereditary-eu.github.io/demos/systems/${system.id}/`}
+    onclick="navigator.clipboard.writeText(this.dataset.url); this.textContent = 'Copied!'"
+  >
+    🔗 Permalink
+  </button>
   <DemoPageHeader
     title={system.data.title}
     image={system.data.image}
@@ -108,6 +115,19 @@ if (system.data.code?.startsWith("https://github.com")) {
     overflow-x: auto;
     white-space: pre-wrap;
     overflow-wrap: anywhere;
+  }
+  .permalink {
+    float: right;
+    margin-top: -4.4rem; /* ponytail: pulls up next to Starlight's h1; adjust if heading size changes */
+    padding: 0.2em 0;
+    font-size: 0.67rem;
+    color: var(--sl-color-gray-3);
+    background: none;
+    border: none;
+    cursor: pointer;
+  }
+  .permalink:hover {
+    color: var(--sl-color-white);
   }
   .start-demo {
     display: block;
